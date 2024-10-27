@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Sphere_2
   - Sphere_4
+  - Sphere_8
+  - Sphere_16
+  - Sphere_32
+  - Sphere_64
+  - Sphere_128
+  - Sphere_256
+  - Sphere_512
+  - Thorn
+  - Sphere_1024
   layers:
   - Default
   - TransparentFX

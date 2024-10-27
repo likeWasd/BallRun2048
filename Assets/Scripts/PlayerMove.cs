@@ -10,13 +10,15 @@ public class PlayerMove : MonoBehaviour
     // プレイヤーが進むスピード(LRはLeftRight)
     int moveSpeedLR;
     [SerializeField] TextMeshPro sphereNumber;
-    int number;
+    int halfSphereNumber;
+    int sphereNumberExp;
     [SerializeField] Material[] numberMaterials = new Material[10];
     // Start is called before the first frame update
     void Start()
     {
         moveSpeedF = 7;
         moveSpeedLR = 10;
+        sphereNumberExp = 1;
     }
 
     // Update is called once per frame
@@ -35,64 +37,23 @@ public class PlayerMove : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Thorn"))
+        if (collision.gameObject.CompareTag("Thorn") && int.Parse(sphereNumber.text) >= 4)
         {
-            number = int.Parse(sphereNumber.text) / 2;
-            sphereNumber.text = number.ToString();
+            halfSphereNumber = int.Parse(sphereNumber.text) / 2;
+            sphereNumberExp--;
+            GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
+            sphereNumber.text = halfSphereNumber.ToString();
         }
-        if (collision.gameObject.CompareTag("Sphere_2") && sphereNumber.text == "2")
+        if (collision.gameObject.CompareTag("Sphere_" + Mathf.Pow(2, sphereNumberExp).ToString()) && sphereNumber.text == Mathf.Pow(2, sphereNumberExp).ToString())
         {
             Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[2];
-            sphereNumber.text = "4";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_4") && sphereNumber.text == "4")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[3];
-            sphereNumber.text = "8";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_8") && sphereNumber.text == "8")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[4];
-            sphereNumber.text = "16";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_16") && sphereNumber.text == "16")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[5];
-            sphereNumber.text = "32";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_32") && sphereNumber.text == "32")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[6];
-            sphereNumber.text = "64";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_64") && sphereNumber.text == "64")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[7];
-            sphereNumber.text = "128";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_128") && sphereNumber.text == "128")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[8];
-            sphereNumber.text = "256";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_256") && sphereNumber.text == "256")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[9];
-            sphereNumber.text = "512";
-        }
-        else if (collision.gameObject.CompareTag("Sphere_512") && sphereNumber.text == "512")
-        {
-            Destroy(collision.gameObject);
-            GetComponent<Renderer>().material = numberMaterials[10];
-            sphereNumber.text = "1k";
+            sphereNumberExp++;
+            GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
+            sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
+            if (sphereNumber.text == "1024")
+            {
+                sphereNumber.text = "1k";
+            }
         }
     }
 }
