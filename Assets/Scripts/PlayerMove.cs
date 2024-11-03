@@ -13,12 +13,14 @@ public class PlayerMove : MonoBehaviour
     int halfSphereNumber;
     int sphereNumberExp;
     [SerializeField] Material[] numberMaterials = new Material[10];
+    [SerializeField] int defaultNumberExp = 1;
     // Start is called before the first frame update
     void Start()
     {
         moveSpeedF = 7;
         moveSpeedLR = 10;
         sphereNumberExp = 1;
+        ChangeNumber(defaultNumberExp);
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class PlayerMove : MonoBehaviour
             sphereNumberExp--;
             GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
             sphereNumber.text = halfSphereNumber.ToString();
+            moveSpeedF -= 2;
         }
         if (collision.gameObject.CompareTag("Sphere_" + Mathf.Pow(2, sphereNumberExp).ToString()) && sphereNumber.text == Mathf.Pow(2, sphereNumberExp).ToString())
         {
@@ -54,6 +57,19 @@ public class PlayerMove : MonoBehaviour
             {
                 sphereNumber.text = "1k";
             }
+            moveSpeedF += 2;
         }
+    }
+
+    void ChangeNumber(int numberExp)
+    {
+        sphereNumberExp = numberExp;
+        GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
+        sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
+        if (sphereNumber.text == "1024")
+        {
+            sphereNumber.text = "1k";
+        }
+        moveSpeedF = numberExp * 2 + 5;
     }
 }

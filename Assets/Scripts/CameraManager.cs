@@ -16,6 +16,15 @@ public class CameraManager : MonoBehaviour
         float posx = player.transform.position.x;
         float posy = player.transform.position.y;
         float posz = player.transform.position.z;
-        transform.position = new Vector3(posx, posy + 4.5f, posz - 3);
+        if (posz >= 155)
+        {
+            transform.position = new Vector3(posx, posy + 4.5f, posz - 8);
+            transform.rotation = Quaternion.Euler(5, 0, 0);
+        }
+        else
+        {
+            transform.position = new Vector3(posx, posy + 4.5f, posz - 3);
+            transform.rotation = Quaternion.Euler(40, 0, 0);
+        }
     }
 }
