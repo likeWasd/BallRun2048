@@ -15,6 +15,7 @@ TagManager:
   - Sphere_512
   - Thorn
   - Sphere_1024
+  - Wall
   layers:
   - Default
   - TransparentFX

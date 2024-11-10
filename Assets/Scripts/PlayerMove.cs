@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerMove : MonoBehaviour
@@ -14,6 +15,7 @@ public class PlayerMove : MonoBehaviour
     int sphereNumberExp;
     [SerializeField] Material[] numberMaterials = new Material[10];
     [SerializeField] int defaultNumberExp = 1;
+    int eachWallNumber;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,19 @@ public class PlayerMove : MonoBehaviour
                 sphereNumber.text = "1k";
             }
             moveSpeedF += 2;
+        }
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            eachWallNumber = collision.gameObject.GetComponent<EachWallManager>().wallNumber;
+            if (int.Parse(sphereNumber.text) >= eachWallNumber)
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                GameVariableManager.retryTimes++;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 
