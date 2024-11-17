@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameVariableManager : MonoBehaviour
 {
     public static int retryTimes;
-    float elapsedTime;
+    [SerializeField] float elapsedTime;
     // Start is called before the first frame update
     void Start()
     {

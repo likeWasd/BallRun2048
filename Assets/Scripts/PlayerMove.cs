@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] TextMeshPro sphereNumber;
     int halfSphereNumber;
     int sphereNumberExp;
+    int sphereNumberKiloExp;
     [SerializeField] Material[] numberMaterials = new Material[10];
     [SerializeField] int defaultNumberExp = 1;
     int eachWallNumber;
@@ -28,7 +29,14 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += moveSpeedF * transform.forward * Time.deltaTime;
+        if (transform.position.z < 180)
+        {
+            transform.position += moveSpeedF * transform.forward * Time.deltaTime;
+        }
+        else
+        {
+
+        }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position -= moveSpeedLR * transform.right * Time.deltaTime;
@@ -55,23 +63,27 @@ public class PlayerMove : MonoBehaviour
             sphereNumberExp++;
             GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
             sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
-            if (sphereNumber.text == "1024")
+            if (sphereNumberExp >= 10)
             {
-                sphereNumber.text = "1k";
+                sphereNumberKiloExp = int.Parse(sphereNumber.text) / 1000;
+                sphereNumber.text = sphereNumberKiloExp + "k";
             }
             moveSpeedF += 2;
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
             eachWallNumber = collision.gameObject.GetComponent<EachWallManager>().wallNumber;
-            if (int.Parse(sphereNumber.text) >= eachWallNumber)
+
+            if (Mathf.Pow(2, sphereNumberExp) >= eachWallNumber)
             {
                 Destroy(collision.gameObject);
             }
             else
             {
                 GameVariableManager.retryTimes++;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                SceneManager.UnloadSceneAsync("GameScene");
+                SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
             }
         }
     }
