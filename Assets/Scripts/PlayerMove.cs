@@ -17,6 +17,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Material[] numberMaterials = new Material[10];
     [SerializeField] int defaultNumberExp = 1;
     int eachWallNumber;
+    float clearElapsedTime;
+    int clearRetryTimes;
+    [SerializeField] TextMeshProUGUI stringTextGoal;
+    [SerializeField] TextMeshProUGUI stringTextResult;
+    [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] TextMeshProUGUI retriedText;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +30,10 @@ public class PlayerMove : MonoBehaviour
         moveSpeedLR = 10;
         sphereNumberExp = 1;
         ChangeNumber(defaultNumberExp);
+        stringTextGoal.enabled = false;
+        stringTextResult.enabled = false;
+        timeText.enabled = false;
+        retriedText.enabled = false;
     }
 
     // Update is called once per frame
@@ -35,7 +45,15 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-
+            clearElapsedTime = GameVariableManager.elapsedTime;
+            clearRetryTimes = GameVariableManager.retryTimes;
+            timeText.text = clearElapsedTime.ToString("f3");
+            retriedText.text = clearRetryTimes.ToString();
+            stringTextGoal.enabled = true;
+            stringTextResult.enabled = true;
+            timeText.enabled = true;
+            retriedText.enabled = true;
+            UnityEditor.EditorApplication.isPaused = true;
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {

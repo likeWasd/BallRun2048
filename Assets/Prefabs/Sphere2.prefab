@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 350997984604114194}
   - component: {fileID: 3860414891184809451}
   - component: {fileID: 1254639511871052959}
+  - component: {fileID: 6974706750856419753}
   m_Layer: 0
   m_Name: Sphere2
   m_TagString: Sphere_2
@@ -305,3 +306,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6974706750856419753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201782443025785615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4344f0e160e616541afdd2cdec251b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereNumberObject: {fileID: 2149100660567999411}
+  sphereNumber: 0
+  numberMaterials:
+  - {fileID: 2100000, guid: 48087ce88df377149982efed071815f0, type: 2}
+  - {fileID: 2100000, guid: 36f472b2ed4e29243aef813fc2f6d0df, type: 2}
+  - {fileID: 2100000, guid: 93cac63d005f91f449f837f64fad7202, type: 2}
+  - {fileID: 2100000, guid: fbecb7e732e08ee4a8dfc10cb79f45f8, type: 2}
+  - {fileID: 2100000, guid: ab438abfdfc03cb45995015b7ec0c2cc, type: 2}
+  - {fileID: 2100000, guid: dbea389bbcc230542adcbf26a439e09d, type: 2}
+  - {fileID: 2100000, guid: a2099f67bf036874382ae4e8ddce7d84, type: 2}
+  - {fileID: 2100000, guid: c04eb51a067d17c45810dd376c22610d, type: 2}
+  - {fileID: 2100000, guid: dfa752657f4e43e47ba7e0b85d648f6d, type: 2}
+  - {fileID: 2100000, guid: 30a7c9ce8a852d94885078a7bc7b353b, type: 2}
