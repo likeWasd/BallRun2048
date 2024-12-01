@@ -8,8 +8,8 @@ public class EachSphereManager : MonoBehaviour
 {
     [SerializeField] TextMeshPro sphereNumberObject;
     public int sphereNumber;
+    int sphereNumberExp;
     int sphereNumberKilo;
-    [SerializeField] Material[] numberMaterials = new Material[10];
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class EachSphereManager : MonoBehaviour
         else
         {
             sphereNumber = int.Parse(sphereNumberObject.text);
-            GetComponent<MeshRenderer>().material = numberMaterials[0];
+            sphereNumberExp = (int)Mathf.Log(sphereNumber, 2);
         }
     }
 

@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 6974706750856419753}
   m_Layer: 0
   m_Name: Sphere2
-  m_TagString: Sphere_2
+  m_TagString: Sphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -320,14 +320,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereNumberObject: {fileID: 2149100660567999411}
   sphereNumber: 0
-  numberMaterials:
-  - {fileID: 2100000, guid: 48087ce88df377149982efed071815f0, type: 2}
-  - {fileID: 2100000, guid: 36f472b2ed4e29243aef813fc2f6d0df, type: 2}
-  - {fileID: 2100000, guid: 93cac63d005f91f449f837f64fad7202, type: 2}
-  - {fileID: 2100000, guid: fbecb7e732e08ee4a8dfc10cb79f45f8, type: 2}
-  - {fileID: 2100000, guid: ab438abfdfc03cb45995015b7ec0c2cc, type: 2}
-  - {fileID: 2100000, guid: dbea389bbcc230542adcbf26a439e09d, type: 2}
-  - {fileID: 2100000, guid: a2099f67bf036874382ae4e8ddce7d84, type: 2}
-  - {fileID: 2100000, guid: c04eb51a067d17c45810dd376c22610d, type: 2}
-  - {fileID: 2100000, guid: dfa752657f4e43e47ba7e0b85d648f6d, type: 2}
-  - {fileID: 2100000, guid: 30a7c9ce8a852d94885078a7bc7b353b, type: 2}

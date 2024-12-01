@@ -14,7 +14,6 @@ public class PlayerMove : MonoBehaviour
     int halfSphereNumber;
     int sphereNumberExp;
     int sphereNumberKiloExp;
-    [SerializeField] Material[] numberMaterials = new Material[10];
     [SerializeField] int defaultNumberExp = 1;
     int eachWallNumber;
     float clearElapsedTime;
@@ -23,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] TextMeshProUGUI stringTextResult;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI retriedText;
+    EachSphereManager eachSphereManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +34,7 @@ public class PlayerMove : MonoBehaviour
         stringTextResult.enabled = false;
         timeText.enabled = false;
         retriedText.enabled = false;
+        eachSphereManager = GameObject.Find("SphereMaterialList").GetComponent<EachSphereManager>();
     }
 
     // Update is called once per frame
@@ -71,20 +72,23 @@ public class PlayerMove : MonoBehaviour
         {
             halfSphereNumber = int.Parse(sphereNumber.text) / 2;
             sphereNumberExp--;
-            GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
+            GetComponent<Renderer>().material = eachSphereManager.numberMaterials[sphereNumberExp - 1];
             sphereNumber.text = halfSphereNumber.ToString();
             moveSpeedF -= 2;
         }
-        if (collision.gameObject.CompareTag("Sphere_" + Mathf.Pow(2, sphereNumberExp).ToString()) && sphereNumber.text == Mathf.Pow(2, sphereNumberExp).ToString())
+        if (collision.gameObject.CompareTag("Sphere") && sphereNumber.text == Mathf.Pow(2, sphereNumberExp).ToString())
         {
             Destroy(collision.gameObject);
             sphereNumberExp++;
-            GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
-            sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
+            GetComponent<Renderer>().material = eachSphereManager.numberMaterials[sphereNumberExp - 1];
             if (sphereNumberExp >= 10)
             {
                 sphereNumberKiloExp = int.Parse(sphereNumber.text) / 1000;
                 sphereNumber.text = sphereNumberKiloExp + "k";
+            } 
+            else
+            {
+                sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
             }
             moveSpeedF += 2;
         }
@@ -109,7 +113,7 @@ public class PlayerMove : MonoBehaviour
     void ChangeNumber(int numberExp)
     {
         sphereNumberExp = numberExp;
-        GetComponent<MeshRenderer>().material = numberMaterials[sphereNumberExp - 1];
+        GetComponent<MeshRenderer>().material = eachSphereManager.numberMaterials[sphereNumberExp - 1];
         sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
         if (sphereNumber.text == "1024")
         {
