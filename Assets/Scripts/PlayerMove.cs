@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -10,11 +11,12 @@ public class PlayerMove : MonoBehaviour
     int moveSpeedF;
     // プレイヤーが進むスピード(LRはLeftRight)
     int moveSpeedLR;
-    [SerializeField] TextMeshPro sphereNumber;
+    public Material[] numberMaterial;
+    [SerializeField] TextMeshPro sphereNumberObject;
     int halfSphereNumber;
+    int sphereNumber;
     int sphereNumberExp;
-    int sphereNumberKiloExp;
-    [SerializeField] int defaultNumberExp = 1;
+    [SerializeField] int defaultNumberExp;
     int eachWallNumber;
     float clearElapsedTime;
     int clearRetryTimes;
@@ -22,19 +24,26 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] TextMeshProUGUI stringTextResult;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI retriedText;
-    EachSphereManager eachSphereManager;
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeedF = 7;
+        moveSpeedF = 2 * defaultNumberExp + 5;
         moveSpeedLR = 10;
-        sphereNumberExp = 1;
-        ChangeNumber(defaultNumberExp);
+        numberMaterial = gameObject.GetComponent<Renderer>().materials;
+        sphereNumberExp = defaultNumberExp;
+        sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
+        if (sphereNumberExp == 10)
+        {
+            sphereNumberObject.text = "1k";
+        }
+        else
+        {
+            sphereNumberObject.text = sphereNumber.ToString();
+        }
         stringTextGoal.enabled = false;
         stringTextResult.enabled = false;
         timeText.enabled = false;
         retriedText.enabled = false;
-        eachSphereManager = GameObject.Find("SphereMaterialList").GetComponent<EachSphereManager>();
     }
 
     // Update is called once per frame
@@ -68,35 +77,33 @@ public class PlayerMove : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Thorn") && int.Parse(sphereNumber.text) >= 4)
+        if (collision.gameObject.CompareTag("Thorn") && int.Parse(sphereNumberObject.text) >= 4)
         {
-            halfSphereNumber = int.Parse(sphereNumber.text) / 2;
+            halfSphereNumber = sphereNumber / 2;
             sphereNumberExp--;
-            GetComponent<Renderer>().material = eachSphereManager.numberMaterials[sphereNumberExp - 1];
-            sphereNumber.text = halfSphereNumber.ToString();
+            GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
+            sphereNumberObject.text = halfSphereNumber.ToString();
             moveSpeedF -= 2;
         }
-        if (collision.gameObject.CompareTag("Sphere") && sphereNumber.text == Mathf.Pow(2, sphereNumberExp).ToString())
+        if (collision.gameObject.CompareTag("Sphere") && sphereNumberObject.text == sphereNumber.ToString())
         {
             Destroy(collision.gameObject);
             sphereNumberExp++;
-            GetComponent<Renderer>().material = eachSphereManager.numberMaterials[sphereNumberExp - 1];
-            if (sphereNumberExp >= 10)
+            GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
+            if (sphereNumberExp == 10)
             {
-                sphereNumberKiloExp = int.Parse(sphereNumber.text) / 1000;
-                sphereNumber.text = sphereNumberKiloExp + "k";
-            } 
+                sphereNumberObject.text = "1k";
+            }
             else
             {
-                sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
+                sphereNumberObject.text = sphereNumber.ToString();
             }
             moveSpeedF += 2;
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
-            eachWallNumber = collision.gameObject.GetComponent<EachWallManager>().wallNumber;
-
-            if (Mathf.Pow(2, sphereNumberExp) >= eachWallNumber)
+            eachWallNumber = collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber;
+            if (sphereNumber >= eachWallNumber)
             {
                 Destroy(collision.gameObject);
             }
@@ -108,17 +115,5 @@ public class PlayerMove : MonoBehaviour
                 SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
             }
         }
-    }
-
-    void ChangeNumber(int numberExp)
-    {
-        sphereNumberExp = numberExp;
-        GetComponent<MeshRenderer>().material = eachSphereManager.numberMaterials[sphereNumberExp - 1];
-        sphereNumber.text = Mathf.Pow(2, sphereNumberExp).ToString();
-        if (sphereNumber.text == "1024")
-        {
-            sphereNumber.text = "1k";
-        }
-        moveSpeedF = numberExp * 2 + 5;
     }
 }
