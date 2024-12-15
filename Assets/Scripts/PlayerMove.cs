@@ -81,15 +81,16 @@ public class PlayerMove : MonoBehaviour
         {
             halfSphereNumber = sphereNumber / 2;
             sphereNumberExp--;
-            GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
+            gameObject.GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
             sphereNumberObject.text = halfSphereNumber.ToString();
             moveSpeedF -= 2;
         }
-        if (collision.gameObject.CompareTag("Sphere") && sphereNumberObject.text == sphereNumber.ToString())
+        if (collision.gameObject.CompareTag("Sphere") && GameObject.Find($"Sphere{sphereNumber}").GetComponent<EachSphereAndWall>().objectNumber == sphereNumber)
         {
             Destroy(collision.gameObject);
             sphereNumberExp++;
-            GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
+            sphereNumber *= 2;
+            gameObject.GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
             if (sphereNumberExp == 10)
             {
                 sphereNumberObject.text = "1k";
