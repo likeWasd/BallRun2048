@@ -13,9 +13,9 @@ public class PlayerMove : MonoBehaviour
     int moveSpeedLR;
     public Material[] numberMaterial;
     [SerializeField] TextMeshPro sphereNumberObject;
-    int halfSphereNumber;
     int sphereNumber;
     int sphereNumberExp;
+    Renderer playerMaterial;
     [SerializeField] int defaultNumberExp;
     int eachWallNumber;
     float clearElapsedTime;
@@ -29,8 +29,9 @@ public class PlayerMove : MonoBehaviour
     {
         moveSpeedF = 2 * defaultNumberExp + 5;
         moveSpeedLR = 10;
-        numberMaterial = gameObject.GetComponent<Renderer>().materials;
         sphereNumberExp = defaultNumberExp;
+        playerMaterial = gameObject.GetComponent<Renderer>();
+        playerMaterial.material = numberMaterial[sphereNumberExp - 1];
         sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
         if (sphereNumberExp == 10)
         {
@@ -77,20 +78,20 @@ public class PlayerMove : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Thorn") && int.Parse(sphereNumberObject.text) >= 4)
+        if (collision.gameObject.CompareTag("Thorn") && sphereNumber >= 4)
         {
-            halfSphereNumber = sphereNumber / 2;
+            sphereNumber /= 2;
             sphereNumberExp--;
-            gameObject.GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
-            sphereNumberObject.text = halfSphereNumber.ToString();
+            playerMaterial.material = numberMaterial[sphereNumberExp - 1];
+            sphereNumberObject.text = sphereNumber.ToString();
             moveSpeedF -= 2;
         }
-        if (collision.gameObject.CompareTag("Sphere") && GameObject.Find($"Sphere{sphereNumber}").GetComponent<EachSphereAndWall>().objectNumber == sphereNumber)
+        if (collision.gameObject.CompareTag("Sphere") && collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber == sphereNumber)
         {
             Destroy(collision.gameObject);
-            sphereNumberExp++;
             sphereNumber *= 2;
-            gameObject.GetComponent<Renderer>().material = numberMaterial[sphereNumberExp];
+            sphereNumberExp++;
+            playerMaterial.material = numberMaterial[sphereNumberExp - 1];
             if (sphereNumberExp == 10)
             {
                 sphereNumberObject.text = "1k";

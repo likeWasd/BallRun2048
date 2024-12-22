@@ -7,6 +7,7 @@ public class CameraManager : MonoBehaviour
     public GameObject player;
     Transform wallPack;
     Transform[] walls;
+    float[] wallsZ;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,11 @@ public class CameraManager : MonoBehaviour
         for (int i = 0; i < walls.Length; i++)
         {
             walls[i] = wallPack.GetChild(i);
+        }
+        wallsZ = new float[walls.Length];
+        for (int i = 0; i < walls.Length; i++)
+        {
+            wallsZ[i] = walls[i].position.z;
         }
     }
 
@@ -26,7 +32,7 @@ public class CameraManager : MonoBehaviour
         float posz = player.transform.position.z;
         for (int i = 0; i < walls.Length; i++)
         {
-            if (posz >= walls[i].position.z - 20 && posz < walls[i].position.z)
+            if (posz >= wallsZ[i] - 20 && posz < wallsZ[i])
             {
                 transform.position = new Vector3(posx, posy + 4.5f, posz - 8);
                 transform.rotation = Quaternion.Euler(5, 0, 0);

@@ -11,12 +11,10 @@ public class EachSphereAndWall : MonoBehaviour
     int objectNumberExp;
     int objectNumberKilo;
     public Material[] numberMaterial;
-    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        numberMaterial = player.GetComponent<Renderer>().materials;
+        numberMaterial = GameObject.Find("Player").GetComponent<PlayerMove>().numberMaterial;
         if (objectNumberObject.text.Contains("k"))
         {
             objectNumberKilo = int.Parse(Regex.Replace(objectNumberObject.text, @"[^0-9]", ""));
@@ -27,7 +25,7 @@ public class EachSphereAndWall : MonoBehaviour
             objectNumber = int.Parse(objectNumberObject.text);
         }
         objectNumberExp = (int)Mathf.Log(objectNumber, 2);
-        gameObject.GetComponent<Renderer>().material = numberMaterial[objectNumberExp];
+        gameObject.GetComponent<Renderer>().material = numberMaterial[objectNumberExp - 1];
     }
 
     // Update is called once per frame
