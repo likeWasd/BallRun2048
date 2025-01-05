@@ -85,24 +85,32 @@ public class PlayerMove : MonoBehaviour
             playerMaterial.material = numberMaterial[sphereNumberExp - 1];
             sphereNumberObject.text = sphereNumber.ToString();
             moveSpeedF -= 2;
+            if (moveSpeedF < 7)
+            {
+                moveSpeedF = 7;
+            }
         }
-        if (collision.gameObject.CompareTag("Sphere") && collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber == sphereNumber)
+        if (collision.gameObject.CompareTag("Sphere"))
         {
-            Destroy(collision.gameObject);
-            sphereNumber *= 2;
-            sphereNumberExp++;
-            playerMaterial.material = numberMaterial[sphereNumberExp - 1];
-            if (sphereNumberExp == 10)
+            if (collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber == sphereNumber || collision.gameObject.GetComponent<EachSphere>().sphereNumber == sphereNumber)
             {
-                sphereNumberObject.text = "1k";
-            }
-            else
-            {
-                sphereNumberObject.text = sphereNumber.ToString();
-            }
-            if (sphereNumberExp < 6)
-            {
+                Destroy(collision.gameObject);
+                sphereNumber *= 2;
+                sphereNumberExp++;
+                playerMaterial.material = numberMaterial[sphereNumberExp - 1];
+                if (sphereNumberExp == 10)
+                {
+                    sphereNumberObject.text = "1k";
+                }
+                else
+                {
+                    sphereNumberObject.text = sphereNumber.ToString();
+                }
                 moveSpeedF += 2;
+                if (moveSpeedF > 17)
+                {
+                    moveSpeedF = 17;
+                }
             }
         }
         if (collision.gameObject.CompareTag("Wall"))
