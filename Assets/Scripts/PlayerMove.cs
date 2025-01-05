@@ -50,7 +50,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z < 180)
+        if (transform.position.z < 210)
         {
             transform.position += moveSpeedF * transform.forward * Time.deltaTime;
         }
@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
         {
             clearElapsedTime = GameVariableManager.elapsedTime;
             clearRetryTimes = GameVariableManager.retryTimes;
-            timeText.text = clearElapsedTime.ToString("f3");
+            timeText.text = clearElapsedTime.ToString("f3") + "s";
             retriedText.text = clearRetryTimes.ToString();
             stringTextGoal.enabled = true;
             stringTextResult.enabled = true;
@@ -100,7 +100,10 @@ public class PlayerMove : MonoBehaviour
             {
                 sphereNumberObject.text = sphereNumber.ToString();
             }
-            moveSpeedF += 2;
+            if (sphereNumberExp < 6)
+            {
+                moveSpeedF += 2;
+            }
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
