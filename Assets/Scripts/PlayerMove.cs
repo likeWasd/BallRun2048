@@ -50,7 +50,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z < 210)
+        if (transform.position.z > -5)
         {
             transform.position += moveSpeedF * transform.forward * Time.deltaTime;
         }
@@ -92,7 +92,7 @@ public class PlayerMove : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Sphere"))
         {
-            if (collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber == sphereNumber || collision.gameObject.GetComponent<EachSphere>().sphereNumber == sphereNumber)
+            if (/*collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber == sphereNumber || */collision.gameObject.GetComponent<EachSphere>().objectNumber == sphereNumber)
             {
                 Destroy(collision.gameObject);
                 sphereNumber *= 2;
@@ -115,7 +115,7 @@ public class PlayerMove : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
-            eachWallNumber = collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber;
+            eachWallNumber = collision.gameObject.GetComponent<EachSphere>().objectNumber;
             if (sphereNumber >= eachWallNumber)
             {
                 Destroy(collision.gameObject);

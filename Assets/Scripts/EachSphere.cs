@@ -5,11 +5,11 @@ using TMPro;
 
 public class EachSphere : MonoBehaviour
 {
-    [SerializeField] TextMeshPro sphereNumberObject;
-    [SerializeField] int defaultNumberExp;
-    public int sphereNumber;
-    int sphereNumberExp;
-    int sphereNumberKilo;
+    [SerializeField] TextMeshPro objectNumberObject;
+    [SerializeField] int defaultObjectNumberExp;
+    public int objectNumber;
+    int objectNumberExp;
+    int objectNumberKilo;
     public Material[] numberMaterial;
     // Start is called before the first frame update
     void Start()
@@ -25,18 +25,18 @@ public class EachSphere : MonoBehaviour
 
     public void Create(int defaultNumberExp)
     {
-        sphereNumberExp = defaultNumberExp;
+        objectNumberExp = defaultNumberExp;
         numberMaterial = GameObject.Find("Player").GetComponent<PlayerMove>().numberMaterial;
-        sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
-        if (sphereNumberExp >= 10)
+        objectNumber = (int)Mathf.Pow(2, objectNumberExp);
+        if (objectNumberExp >= 10)
         {
-            sphereNumberKilo = sphereNumberExp - 9;
-            sphereNumberObject.text = sphereNumberKilo.ToString() + "k";
+            objectNumberKilo = objectNumberExp - 9;
+            objectNumberObject.text = objectNumberKilo.ToString() + "k";
         }
         else
         {
-            sphereNumberObject.text = sphereNumber.ToString();
+            objectNumberObject.text = objectNumber.ToString();
         }
-        gameObject.GetComponent<Renderer>().material = numberMaterial[sphereNumberExp - 1];
+        gameObject.GetComponent<Renderer>().material = numberMaterial[objectNumberExp - 1];
     }
 }

@@ -147,9 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358c7c751f2a7a34b93906d25d8c025c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereNumberObject: {fileID: 2435890046667248752}
-  defaultNumberExp: 1
-  sphereNumber: 0
+  objectNumberObject: {fileID: 2435890046667248752}
+  defaultObjectNumberExp: 1
+  objectNumber: 0
   numberMaterial: []
 --- !u!1 &6618322788101770957
 GameObject:
