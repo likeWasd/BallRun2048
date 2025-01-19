@@ -9,73 +9,103 @@ public class RandomStageGenerator : MonoBehaviour
     [SerializeField] GameObject thornPrefab;
     [SerializeField] GameObject wallPack;
     GameObject cloneObject;
+    float[][] objectDatas;
     // Start is called before the first frame update
     void Start()
     {
-        GenerateSphere(-3f, 20f, 1);
-        GenerateSphere(3f, 20f, 2);
-        GenerateSphere(-3f, 35f, 4);
-        GenerateSphere(3f, 35f, 2);
-        GenerateSphere(-3f, 50f, 1);
-        GenerateSphere(0f, 50f, 1);
-        GenerateSphere(3f, 50f, 3);
-        GenerateWall(75, 4);
-        for (float i = 0f; i < 4f; i++)
+        objectDatas = new float[][]
         {
-            for (float j = 0f; j < 5f; j++)
+            new float[] {-3f, 20f, 1f, 0f},
+            new float[] {3f, 20f, 2f, 0f},
+            new float[] {-3f, 35f, 4f, 0f},
+            new float[] {3f, 35f, 2f, 0f},
+            new float[] {-3f, 50f, 1f, 0f},
+            new float[] {0f, 50f, 1f, 0f},
+            new float[] {3f, 50f, 3f, 0f},
+            new float[] {75f, 4f, 1f}
+        };
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 5; j++)
             {
-                GenerateWithThorn(j * 2f - 4f, i * 7.5f + 95f, 4);
+                objectDatas[8 + i * 4 + j] = new float[] {
+                    (float)j * 2f - 4f,
+                    (float)i * 7.5f + 95f,
+                    4f,
+                    2f
+                };
             }
         }
-        for (float i = 0f; i < 5f; i++)
+        for (int i = 0; i < 5; i++)
         {
-            GenerateSphere(i * 2f - 4f, 125f, 4);
+            objectDatas[29 + i] = new float[] {
+                    (float)i * 2f - 4f,
+                    125f,
+                    4f,
+                    0f
+            };
         }
-        GenerateSphere(-3f, 135f, 5);
-        GenerateSphere(-1f, 135f, 6);
-        GenerateSphere(1f, 135f, 9);
-        GenerateSphere(3f, 135f, 6);
-        GenerateSphere(-3f, 145f, 9);
-        GenerateSphere(-1f, 145f, 6);
-        GenerateSphere(1f, 145f, 5);
-        GenerateSphere(3f, 145f, 6);
-        for (float i = 0f; i < 4f; i++)
+        objectDatas[34] = new float[] { -3f, 135f, 5f, 0f };
+        objectDatas[35] = new float[] { -3f, 135f, 5 };
+        objectDatas[36] = new float[] { -1f, 135f, 6 };
+        objectDatas[37] = new float[] { 1f, 135f, 9 };
+        objectDatas[38] = new float[] { 3f, 135f, 6 };
+        objectDatas[39] = new float[] { -3f, 145f, 9 };
+        objectDatas[40] = new float[] { -1f, 145f, 6 };
+        objectDatas[41] = new float[] { 1f, 145f, 5 };
+        objectDatas[42] = new float[] { 3f, 145f, 6 };
+        for (int i = 0; i < 4; i++)
         {
-            GenerateSphere(i * 2f - 4f, 155f, 7);
+            objectDatas[43 + i] = new float[] { i * 2f - 4f, 155f, 7f, 0f };
         }
-        for (float i = 0f; i < 4f; i++)
+        for (int i = 0; i < 4; i++)
         {
-            GenerateSphere(i * 2f - 3f, 165f, 8);
+            objectDatas[47 + i] = new float[] { i * 2f - 3f, 165f, 8f, 0f };
         }
-        GenerateWall(190, 8);
-        GenerateWall(250, 7);
+        objectDatas[51] = new float[] { 190f, 8f, 1f };
+        objectDatas[52] = new float[] { 250f, 7f, 1f };
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (objectDatas != null)
+        {
+            switch (objectDatas[0][3])
+            {
+                case 0f:
+                case 2f:
+                    GenerateSphere(objectDatas[0][0], objectDatas[0][1], objectDatas[0][2], 0f);
+                    break;
+                case 1f:
+                    GenerateSphere(0f, objectDatas[0][0], objectDatas[0][1], 1f);
+                    break;
+            }
+            objectDatas[0] = null;
+        }
     }
 
-    void GenerateSphere(float x, float z, int number)
+    void GenerateSphere(float x, float z, float number, float type)
     {
-        cloneObject = Instantiate(spherePrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
         EachSphere eachSphere = cloneObject.GetComponent<EachSphere>();
-        eachSphere.Create(number);
+        switch (type)
+        {
+            case 0:
+                cloneObject = Instantiate(spherePrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                eachSphere.Create((int)number);
+                break;
+            case 1:
+                cloneObject = Instantiate(wallPrefab, new Vector3(0f, 7f, z), Quaternion.identity, wallPack.transform);
+                eachSphere.Create((int)number);
+                break;
+            case 2:
+                cloneObject = Instantiate(spherePrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                eachSphere.Create((int)number);
+                cloneObject = Instantiate(thornPrefab, new Vector3(x, -0.4f, z + 2.0f), Quaternion.Euler(35, 0, 45));
+                break;
+            default:
+                break;
+        }
 
-    }
-
-    void GenerateWall(float z, int number)
-    {
-        cloneObject = Instantiate(wallPrefab, new Vector3(0f, 7f, z), Quaternion.identity, wallPack.transform);
-        EachSphere eachSphere = cloneObject.GetComponent<EachSphere>();
-        eachSphere.Create(number);
-
-    }
-
-    void GenerateWithThorn(float x, float z, int number)
-    {
-        GenerateSphere(x, z, number);
-        cloneObject = Instantiate(thornPrefab, new Vector3(x, -0.4f, z + 2.0f), Quaternion.Euler(35, 0, 45));
     }
 }
