@@ -12,6 +12,8 @@ public class RandomStageGenerator : MonoBehaviour
     GameObject cloneObject;
     float[][] objectDatas;
     int iLength;
+    int j;
+    int generateType;
     System.Random rand = new System.Random();
     // Start is called before the first frame update
     void Start()
@@ -69,12 +71,15 @@ public class RandomStageGenerator : MonoBehaviour
         objectDatas[51] = new float[] { 0f, 190f, 8f, 1f };
         objectDatas[52] = new float[] { 0f, 250f, 7f, 1f };
         */
+        j = 0;
+        UnityEngine.Random.InitState(123);
         iLength = rand.Next(16, 26);
+        iLength = 10;
         for (int i = 1; i < iLength; i++)
         {
             if (i == iLength - 1)
             {
-                GenerateSphere(0, 20f + (i - 1) * 10, 2f, 1f);
+                GenerateSphere(0, 20f + (i - 1) * 10 + 2 * j + 20, j, 1f);
             }
             else
             {
@@ -93,6 +98,7 @@ public class RandomStageGenerator : MonoBehaviour
                         GenerateSphereArray(i, -1.5f);
                     }
                 }
+                if (i > 1) j++;
             }
         }
     }
@@ -110,11 +116,35 @@ public class RandomStageGenerator : MonoBehaviour
 
     void GenerateSphereArray(int i, float x)
     {
-        GenerateSphere(-2f + x, 20f + (i - 1) * 10, 1f, 0f);
-        GenerateSphere(2f + x, 20f + (i - 1) * 10, 1f, 0f);
-        if ((float)i % 3f == 0f)
+        generateType = UnityEngine.Random.Range(0, 2);
+        switch (generateType)
         {
-            GenerateSphere(0f + x, 20f + (i - 1) * 10, 1f, 0f);
+            case 0:
+                GenerateSphere(-2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
+                GenerateSphere(2f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
+                if ((float)i % 3f == 0f)
+                {
+                    GenerateSphere(0f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
+                }
+                break;
+            case 1:
+                GenerateSphere(-2f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
+                GenerateSphere(2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
+                if ((float)i % 3f == 0f)
+                {
+                    GenerateSphere(0f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
+                }
+                break;
+            case 2:
+                GenerateSphere(-2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
+                GenerateSphere(2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
+                if ((float)i % 3f == 0f)
+                {
+                    GenerateSphere(0f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
+                }
+                break;
+            default:
+                break;
         }
     }
 

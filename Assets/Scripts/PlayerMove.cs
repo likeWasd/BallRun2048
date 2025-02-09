@@ -27,7 +27,7 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeedF = 2 * defaultNumberExp + 5;
+        moveSpeedF = defaultNumberExp + 5;
         moveSpeedLR = 10;
         sphereNumberExp = defaultNumberExp;
         playerMaterial = gameObject.GetComponent<Renderer>();
@@ -85,14 +85,14 @@ public class PlayerMove : MonoBehaviour
             playerMaterial.material = numberMaterial[sphereNumberExp - 1];
             sphereNumberObject.text = sphereNumber.ToString();
             moveSpeedF -= 2;
-            if (moveSpeedF < 7)
+            if (moveSpeedF < 6)
             {
-                moveSpeedF = 7;
+                moveSpeedF = 6;
             }
         }
         if (collision.gameObject.CompareTag("Sphere"))
         {
-            if (/*collision.gameObject.GetComponent<EachSphereAndWall>().objectNumber == sphereNumber || */collision.gameObject.GetComponent<EachSphere>().objectNumber == sphereNumber)
+            if (collision.gameObject.GetComponent<EachSphere>().objectNumber == sphereNumber)
             {
                 Destroy(collision.gameObject);
                 sphereNumber *= 2;
@@ -119,6 +119,12 @@ public class PlayerMove : MonoBehaviour
             if (sphereNumber >= eachWallNumber)
             {
                 Destroy(collision.gameObject);
+                moveSpeedF = 6;
+                //sphereNumberExp = 1;
+                //playerMaterial = gameObject.GetComponent<Renderer>();
+                //playerMaterial.material = numberMaterial[sphereNumberExp - 1];
+                //sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
+                //sphereNumberObject.text = sphereNumber.ToString();
             }
             else
             {
