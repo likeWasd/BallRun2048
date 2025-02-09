@@ -1278,7 +1278,7 @@ Transform:
   m_GameObject: {fileID: 1790053451}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 160}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1309,7 +1309,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: dfa752657f4e43e47ba7e0b85d648f6d, type: 2}
   - {fileID: 2100000, guid: 30a7c9ce8a852d94885078a7bc7b353b, type: 2}
   sphereNumberObject: {fileID: 2020687087}
-  defaultNumberExp: 9
+  defaultNumberExp: 1
   stringTextGoal: {fileID: 882726403}
   stringTextResult: {fileID: 1788505672}
   timeText: {fileID: 654584957}
