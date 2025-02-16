@@ -12,7 +12,17 @@ public class RandomStageGenerator : MonoBehaviour
     GameObject cloneObject;
     float[][] objectDatas;
     int iLength;
-    int j;
+    int objectZ;
+    /// <summary>
+    /// Sphereの数字の指数
+    /// </summary>
+    int allSpherePosShift;
+    int sphereNumberExp;
+    int allSphereDistance;
+    /// <summary>
+    /// sphereDistanceByNum
+    /// </summary>
+    int sphereDistanceByNum;
     int generateType;
     System.Random rand = new System.Random();
     // Start is called before the first frame update
@@ -32,10 +42,10 @@ public class RandomStageGenerator : MonoBehaviour
         };
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int sphereNumberExp = 0; sphereNumberExp < 5; sphereNumberExp++)
             {
-                objectDatas[8 + i * 4 + j] = new float[] {
-                    (float)j * 2f - 4f,
+                objectDatas[8 + i * 4 + sphereNumberExp] = new float[] {
+                    (float)sphereNumberExp * 2f - 4f,
                     (float)i * 7.5f + 95f,
                     4f,
                     2f
@@ -71,15 +81,19 @@ public class RandomStageGenerator : MonoBehaviour
         objectDatas[51] = new float[] { 0f, 190f, 8f, 1f };
         objectDatas[52] = new float[] { 0f, 250f, 7f, 1f };
         */
-        j = 0;
+        allSpherePosShift = 20;
+        allSphereDistance = 10;
+        sphereDistanceByNum = 2;
+        sphereNumberExp = 0;
         UnityEngine.Random.InitState(123);
-        iLength = rand.Next(16, 26);
+        //iLength = rand.Next(16, 26);
         iLength = 10;
-        for (int i = 1; i < iLength; i++)
+        for (int i = 0; i < iLength; i++)
         {
+            objectZ = allSpherePosShift + i * allSphereDistance + sphereDistanceByNum * sphereNumberExp;
             if (i == iLength - 1)
             {
-                GenerateSphere(0, 20f + (i - 1) * 10 + 2 * j + 20, j, 1f);
+                GenerateObject(0, objectZ + 20, sphereNumberExp - 1, 1f);
             }
             else
             {
@@ -89,7 +103,7 @@ public class RandomStageGenerator : MonoBehaviour
                 }
                 else
                 {
-                    if ((float)i % 2f == 0f)
+                    if ((i + 1) % 2f == 0f)
                     {
                         GenerateSphereArray(i, 1f);
                     }
@@ -98,7 +112,37 @@ public class RandomStageGenerator : MonoBehaviour
                         GenerateSphereArray(i, -1.5f);
                     }
                 }
-                if (i > 1) j++;
+                if (i > 0) sphereNumberExp++;
+            }
+        }
+        allSpherePosShift = 160;
+        sphereNumberExp = 0;
+        iLength = 15;
+        for (int i = 0; i < iLength; i++)
+        {
+            objectZ = allSpherePosShift + i * allSphereDistance + sphereDistanceByNum * sphereNumberExp;
+            if (i == iLength - 1)
+            {
+                GenerateObject(0, objectZ + 20, sphereNumberExp - 1, 1f);
+            }
+            else
+            {
+                if (i <= 4)
+                {
+                    GenerateSphereArray(i, 0f);
+                }
+                else
+                {
+                    if ((i + 1) % 2f == 0f)
+                    {
+                        GenerateSphereArray(i, 1f);
+                    }
+                    else
+                    {
+                        GenerateSphereArray(i, -1.5f);
+                    }
+                }
+                if (i > 0) sphereNumberExp++;
             }
         }
     }
@@ -109,38 +153,39 @@ public class RandomStageGenerator : MonoBehaviour
         /*
         if (objectDatas != null)
         {
-            GenerateSphere(objectDatas[0][0], objectDatas[0][1], objectDatas[0][2], objectDatas[0][3]);
+            GenerateObject(objectDatas[0][0], objectDatas[0][1], objectDatas[0][2], objectDatas[0][3]);
         }
         */
     }
 
+    // xは全体的にx座標をどれくらいずらすか
     void GenerateSphereArray(int i, float x)
     {
         generateType = UnityEngine.Random.Range(0, 2);
         switch (generateType)
         {
             case 0:
-                GenerateSphere(-2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
-                GenerateSphere(2f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
-                if ((float)i % 3f == 0f)
+                GenerateObject(   -2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                GenerateObject(    2f + x, objectZ, 1f + sphereNumberExp, 0f);
+                if ((i + 1) % 3f == 0f)
                 {
-                    GenerateSphere(0f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
+                    GenerateObject(0f + x, objectZ, 2f + sphereNumberExp, 0f);
                 }
                 break;
             case 1:
-                GenerateSphere(-2f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
-                GenerateSphere(2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
-                if ((float)i % 3f == 0f)
+                GenerateObject(   -2f + x, objectZ, 1f + sphereNumberExp, 0f);
+                GenerateObject(    2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                if ((i + 1) % 3f == 0f)
                 {
-                    GenerateSphere(0f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
+                    GenerateObject(0f + x, objectZ, 1f + sphereNumberExp, 0f);
                 }
                 break;
             case 2:
-                GenerateSphere(-2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
-                GenerateSphere(2f + x, 20f + (i - 1) * 10 + 2 * j, 2f + j, 0f);
-                if ((float)i % 3f == 0f)
+                GenerateObject(   -2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                GenerateObject(    2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                if ((i + 1) % 3f == 0f)
                 {
-                    GenerateSphere(0f + x, 20f + (i - 1) * 10 + 2 * j, 1f + j, 0f);
+                    GenerateObject(0f + x, objectZ, 1f + sphereNumberExp, 0f);
                 }
                 break;
             default:
@@ -148,7 +193,7 @@ public class RandomStageGenerator : MonoBehaviour
         }
     }
 
-    void GenerateSphere(float x, float z, float number, float type)
+    void GenerateObject(float x, float z, float number, float type)
     {
         switch (type)
         {

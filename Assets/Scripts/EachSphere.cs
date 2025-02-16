@@ -10,6 +10,7 @@ public class EachSphere : MonoBehaviour
     public int objectNumber;
     int objectNumberExp;
     int objectNumberKilo;
+    int objectNumberKiloExp;
     public Material[] numberMaterial;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,8 @@ public class EachSphere : MonoBehaviour
         objectNumber = (int)Mathf.Pow(2, objectNumberExp);
         if (objectNumberExp >= 10)
         {
-            objectNumberKilo = objectNumberExp - 9;
+            objectNumberKiloExp = objectNumberExp - 9;
+            objectNumberKilo = (int)Mathf.Pow(2, objectNumberKiloExp - 1); ;
             objectNumberObject.text = objectNumberKilo.ToString() + "k";
         }
         else

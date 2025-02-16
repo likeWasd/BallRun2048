@@ -120,11 +120,11 @@ public class PlayerMove : MonoBehaviour
             {
                 Destroy(collision.gameObject);
                 moveSpeedF = 6;
-                //sphereNumberExp = 1;
-                //playerMaterial = gameObject.GetComponent<Renderer>();
-                //playerMaterial.material = numberMaterial[sphereNumberExp - 1];
-                //sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
-                //sphereNumberObject.text = sphereNumber.ToString();
+                sphereNumberExp = 1;
+                playerMaterial = gameObject.GetComponent<Renderer>();
+                playerMaterial.material = numberMaterial[sphereNumberExp - 1];
+                sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
+                sphereNumberObject.text = sphereNumber.ToString();
             }
             else
             {
