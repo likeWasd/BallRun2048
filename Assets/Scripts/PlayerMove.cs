@@ -30,7 +30,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (GameVariableManager.restartStage == 2) transform.position = new Vector3(0, 0, 146);
         moveSpeedF = defaultNumberExp + 5;
-        moveSpeedF = 120;
+        moveSpeedF = 8;
         moveSpeedLR = 10;
         sphereNumberExp = defaultNumberExp;
         playerMaterial = gameObject.GetComponent<Renderer>();
@@ -53,7 +53,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z > 50)
+        if (Input.GetKey(KeyCode.W))
         {
             SceneManager.UnloadSceneAsync("GameScene");
             SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
@@ -114,11 +114,13 @@ public class PlayerMove : MonoBehaviour
                 {
                     sphereNumberObject.text = sphereNumber.ToString();
                 }
+                /*
                 moveSpeedF += 2;
                 if (moveSpeedF > 17)
                 {
                     moveSpeedF = 17;
                 }
+                */
             }
         }
         if (collision.gameObject.CompareTag("Wall"))
