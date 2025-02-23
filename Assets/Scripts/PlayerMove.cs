@@ -24,10 +24,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] TextMeshProUGUI stringTextResult;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI retriedText;
+    public int stageNum;
     // Start is called before the first frame update
     void Start()
     {
+        if (GameVariableManager.restartStage == 2) transform.position = new Vector3(0, 0, 146);
         moveSpeedF = defaultNumberExp + 5;
+        moveSpeedF = 120;
         moveSpeedLR = 10;
         sphereNumberExp = defaultNumberExp;
         playerMaterial = gameObject.GetComponent<Renderer>();
@@ -50,6 +53,11 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.z > 50)
+        {
+            SceneManager.UnloadSceneAsync("GameScene");
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
+        }
         if (transform.position.z > -5)
         {
             transform.position += moveSpeedF * transform.forward * Time.deltaTime;
@@ -119,6 +127,7 @@ public class PlayerMove : MonoBehaviour
             if (sphereNumber >= eachWallNumber)
             {
                 Destroy(collision.gameObject);
+                stageNum++;
                 moveSpeedF = 6;
                 sphereNumberExp = 1;
                 playerMaterial = gameObject.GetComponent<Renderer>();
@@ -128,6 +137,7 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
+                GameVariableManager.restartStage = stageNum;
                 GameVariableManager.retryTimes++;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 SceneManager.UnloadSceneAsync("GameScene");

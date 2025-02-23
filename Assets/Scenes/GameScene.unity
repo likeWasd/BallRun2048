@@ -1323,6 +1323,7 @@ MonoBehaviour:
   stringTextResult: {fileID: 1788505672}
   timeText: {fileID: 654584957}
   retriedText: {fileID: 1510720152}
+  stageNum: 0
 --- !u!54 &1790053457
 Rigidbody:
   m_ObjectHideFlags: 0

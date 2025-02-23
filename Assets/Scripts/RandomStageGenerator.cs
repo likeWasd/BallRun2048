@@ -81,12 +81,12 @@ public class RandomStageGenerator : MonoBehaviour
         objectDatas[51] = new float[] { 0f, 190f, 8f, 1f };
         objectDatas[52] = new float[] { 0f, 250f, 7f, 1f };
         */
-        allSpherePosShift = 20;
+        //iLength = rand.Next(16, 26);
         allSphereDistance = 10;
         sphereDistanceByNum = 2;
-        sphereNumberExp = 0;
         UnityEngine.Random.InitState(123);
-        //iLength = rand.Next(16, 26);
+        allSpherePosShift = 20;
+        sphereNumberExp = 0;
         iLength = 10;
         for (int i = 0; i < iLength; i++)
         {
@@ -115,7 +115,7 @@ public class RandomStageGenerator : MonoBehaviour
                 if (i > 0) sphereNumberExp++;
             }
         }
-        allSpherePosShift = 160;
+        allSpherePosShift = 164;
         sphereNumberExp = 0;
         iLength = 15;
         for (int i = 0; i < iLength; i++)
@@ -165,28 +165,42 @@ public class RandomStageGenerator : MonoBehaviour
         switch (generateType)
         {
             case 0:
-                GenerateObject(   -2f + x, objectZ, 2f + sphereNumberExp, 0f);
-                GenerateObject(    2f + x, objectZ, 1f + sphereNumberExp, 0f);
+                GenerateObject(-2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                GenerateObject(2f + x, objectZ, 1f + sphereNumberExp, 0f);
                 if ((i + 1) % 3f == 0f)
                 {
                     GenerateObject(0f + x, objectZ, 2f + sphereNumberExp, 0f);
                 }
                 break;
             case 1:
-                GenerateObject(   -2f + x, objectZ, 1f + sphereNumberExp, 0f);
-                GenerateObject(    2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                GenerateObject(-2f + x, objectZ, 1f + sphereNumberExp, 0f);
+                GenerateObject(2f + x, objectZ, 2f + sphereNumberExp, 0f);
                 if ((i + 1) % 3f == 0f)
                 {
                     GenerateObject(0f + x, objectZ, 1f + sphereNumberExp, 0f);
                 }
                 break;
             case 2:
-                GenerateObject(   -2f + x, objectZ, 2f + sphereNumberExp, 0f);
-                GenerateObject(    2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                GenerateObject(-2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                GenerateObject(2f + x, objectZ, 2f + sphereNumberExp, 0f);
                 if ((i + 1) % 3f == 0f)
                 {
                     GenerateObject(0f + x, objectZ, 1f + sphereNumberExp, 0f);
                 }
+                break;
+            default:
+                break;
+        }
+    }
+
+    void GenerateSphereArrayRandom(float x)
+    {
+        generateType = rand.Next(0, 26);
+        switch (generateType)
+        {
+            case 0:
+                GenerateObject(-2f + x, objectZ, 2f + sphereNumberExp, 0f);
+                GenerateObject(2f + x, objectZ, 1f + sphereNumberExp, 0f);
                 break;
             default:
                 break;
