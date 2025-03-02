@@ -27,7 +27,7 @@ public class EachSphere : MonoBehaviour
     public void Create(int defaultNumberExp)
     {
         objectNumberExp = defaultNumberExp;
-        numberMaterial = GameObject.Find("Player").GetComponent<PlayerMove>().numberMaterial;
+        numberMaterial = GameObject.Find("Player").GetComponent<RndStgPlayerMove>().numberMaterial;
         objectNumber = (int)Mathf.Pow(2, objectNumberExp);
         if (objectNumberExp >= 10)
         {

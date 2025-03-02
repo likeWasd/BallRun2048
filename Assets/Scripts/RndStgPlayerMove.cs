@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class PlayerMove : MonoBehaviour
+public class RndStgPlayerMove : MonoBehaviour
 {
     // プレイヤーが進むスピード(FはForward)
     int moveSpeedF;
@@ -132,7 +132,7 @@ public class PlayerMove : MonoBehaviour
             {
                 GameVariableManager.restartStage = stageNum;
                 GameVariableManager.retryTimes++;
-                SceneManager.LoadSceneAsync("GameScene", LoadSceneMode.Single);
+                SceneManager.LoadSceneAsync("RndGameScene", LoadSceneMode.Single);
             }
         }
     }
