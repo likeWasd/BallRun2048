@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class EachSphere : MonoBehaviour
+public class EachObject : MonoBehaviour
 {
     [SerializeField] TextMeshPro objectNumberObject;
     [SerializeField] int defaultObjectNumberExp;
@@ -27,7 +27,7 @@ public class EachSphere : MonoBehaviour
     public void Create(int defaultNumberExp)
     {
         objectNumberExp = defaultNumberExp;
-        numberMaterial = GameObject.Find("Player").GetComponent<RndStgPlayerMove>().numberMaterial;
+        numberMaterial = GameObject.Find("Player").GetComponent<PlayerMove>().numberMaterial;
         objectNumber = (int)Mathf.Pow(2, objectNumberExp);
         if (objectNumberExp >= 10)
         {

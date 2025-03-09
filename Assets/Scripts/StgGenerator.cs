@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialStageGenerator : MonoBehaviour
+public class StgGenerator : MonoBehaviour
 {
     [SerializeField] GameObject spherePrefab;
     [SerializeField] GameObject wallPrefab;
@@ -22,12 +23,13 @@ public class TutorialStageGenerator : MonoBehaviour
     /// </summary>
     int sphereDistanceByNum;
     int generateType;
+    System.Random rand = new System.Random();
     // Start is called before the first frame update
     void Start()
     {
         allSphereDistance = 10;
         sphereDistanceByNum = 2;
-        Random.InitState(123);
+        UnityEngine.Random.InitState(123);
         allSpherePosShift = 20;
         sphereNumberExp = 0;
         iLength = 10;
@@ -131,9 +133,64 @@ public class TutorialStageGenerator : MonoBehaviour
         }
     }
 
+    void GenerateSphereArrayRandom(float x)
+    {
+        generateType = rand.Next(0, 26);
+        switch (generateType)
+        {
+            case 0:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 1:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 2:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(0f + x, 1f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 3:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(0f + x, 1f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 4:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(0f + x, 2f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 5:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(0f + x, 2f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 6:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(0f + x, 1f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 7:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(0f + x, 2f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 8:
+                GenerateObjectPreset1(-2.5f + x, 2f);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void GenerateObjectPreset1(float x, float number)
+    {
+        GenerateObject(x, objectZ, number + sphereNumberExp, 0f);
+    }
+
     void GenerateObject(float x, float z, float number, float type)
     {
-        Debug.Log("Created");
         switch (type)
         {
             case 0:
@@ -148,17 +205,17 @@ public class TutorialStageGenerator : MonoBehaviour
             default:
                 break;
         }
-        EachSphere eachSphere = cloneObject.GetComponent<EachSphere>();
+        EachObject eachObject = cloneObject.GetComponent<EachObject>();
         switch (type)
         {
             case 0:
-                eachSphere.Create((int)number);
+                eachObject.Create((int)number);
                 break;
             case 1:
-                eachSphere.Create((int)number);
+                eachObject.Create((int)number);
                 break;
             case 2:
-                eachSphere.Create((int)number);
+                eachObject.Create((int)number);
                 cloneObject = Instantiate(thornPrefab, new Vector3(x, -0.4f, z + 2.0f), Quaternion.Euler(35, 0, 45));
                 break;
             default:

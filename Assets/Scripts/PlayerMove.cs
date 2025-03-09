@@ -93,7 +93,7 @@ public class PlayerMove : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Sphere"))
         {
-            if (collision.gameObject.GetComponent<EachSphere>().objectNumber == sphereNumber)
+            if (collision.gameObject.GetComponent<EachObject>().objectNumber == sphereNumber)
             {
                 Destroy(collision.gameObject);
                 sphereNumber *= 2;
@@ -116,7 +116,7 @@ public class PlayerMove : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
-            eachWallNumber = collision.gameObject.GetComponent<EachSphere>().objectNumber;
+            eachWallNumber = collision.gameObject.GetComponent<EachObject>().objectNumber;
             if (sphereNumber >= eachWallNumber)
             {
                 Destroy(collision.gameObject);
