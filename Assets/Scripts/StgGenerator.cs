@@ -23,6 +23,7 @@ public class StgGenerator : MonoBehaviour
     /// </summary>
     int sphereDistanceByNum;
     int generateType;
+    int generatePresetType;
     System.Random rand = new System.Random();
     // Start is called before the first frame update
     void Start()
@@ -95,7 +96,7 @@ public class StgGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // xは全体的にx座標をどれくらいずらすか
@@ -135,49 +136,158 @@ public class StgGenerator : MonoBehaviour
 
     void GenerateSphereArrayRandom(float x)
     {
+        generatePresetType = rand.Next(0, 7);
         generateType = rand.Next(0, 26);
         switch (generateType)
         {
             case 0:
-                GenerateObjectPreset1(-3f + x, 2f);
-                GenerateObjectPreset1(3f + x, 1f);
+                GenerateObjectArrayPreset1(-3f, 3f, x, generatePresetType);
                 break;
             case 1:
-                GenerateObjectPreset1(-3f + x, 1f);
-                GenerateObjectPreset1(3f + x, 2f);
+                GenerateObjectArrayPreset1(-3f, 2.5f, x, generatePresetType);
                 break;
             case 2:
-                GenerateObjectPreset1(-3f + x, 2f);
-                GenerateObjectPreset1(0f + x, 1f);
-                GenerateObjectPreset1(3f + x, 1f);
-                break;
-            case 3:
-                GenerateObjectPreset1(-3f + x, 1f);
-                GenerateObjectPreset1(0f + x, 1f);
-                GenerateObjectPreset1(3f + x, 2f);
+                GenerateObjectArrayPreset1(-3f, 2f, x, generatePresetType);
                 break;
             case 4:
-                GenerateObjectPreset1(-3f + x, 2f);
-                GenerateObjectPreset1(0f + x, 2f);
-                GenerateObjectPreset1(3f + x, 1f);
+                GenerateObjectArrayPreset1(-2.5f, 2.5f, x, generatePresetType);
                 break;
             case 5:
+                GenerateObjectArrayPreset1(-2.5f, 2f, x, generatePresetType);
+                break;
+            case 15:
+                GenerateObjectArrayPreset1(-2f, 2.5f, x, generatePresetType);
+                break;
+            case 32:
                 GenerateObjectPreset1(-3f + x, 1f);
-                GenerateObjectPreset1(0f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 1f);
+                GenerateObjectPreset1(1f + x, 1f);
                 GenerateObjectPreset1(3f + x, 2f);
                 break;
-            case 6:
-                GenerateObjectPreset1(-3f + x, 2f);
-                GenerateObjectPreset1(0f + x, 1f);
-                GenerateObjectPreset1(3f + x, 2f);
-                break;
-            case 7:
+            case 33:
                 GenerateObjectPreset1(-3f + x, 1f);
-                GenerateObjectPreset1(0f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 1f);
+                GenerateObjectPreset1(1f + x, 2f);
                 GenerateObjectPreset1(3f + x, 1f);
                 break;
-            case 8:
-                GenerateObjectPreset1(-2.5f + x, 2f);
+            case 34:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(-1f + x, 2f);
+                GenerateObjectPreset1(1f + x, 1f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 35:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 1f);
+                GenerateObjectPreset1(1f + x, 1f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 36:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 2f);
+                GenerateObjectPreset1(1f + x, 1f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 37:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 1f);
+                GenerateObjectPreset1(1f + x, 2f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 38:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 1f);
+                GenerateObjectPreset1(1f + x, 1f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 39:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(-1f + x, 2f);
+                GenerateObjectPreset1(1f + x, 2f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 40:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(-1f + x, 2f);
+                GenerateObjectPreset1(1f + x, 1f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 41:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(-1f + x, 1f);
+                GenerateObjectPreset1(1f + x, 2f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 42:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 2f);
+                GenerateObjectPreset1(1f + x, 2f);
+                GenerateObjectPreset1(3f + x, 1f);
+                break;
+            case 43:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 2f);
+                GenerateObjectPreset1(1f + x, 1f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 44:
+                GenerateObjectPreset1(-3f + x, 2f);
+                GenerateObjectPreset1(-1f + x, 1f);
+                GenerateObjectPreset1(1f + x, 2f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            case 45:
+                GenerateObjectPreset1(-3f + x, 1f);
+                GenerateObjectPreset1(-1f + x, 2f);
+                GenerateObjectPreset1(1f + x, 2f);
+                GenerateObjectPreset1(3f + x, 2f);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void GenerateObjectArrayPreset1(float leftX, float distanceX, float shiftX, int generateType)
+    {
+        switch (generateType)
+        {
+            case 0:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 2f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 1f);
+                break;
+            case 1:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 1f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 2f);
+                break;
+            case 2:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 2f);
+                GenerateObjectPreset1(leftX + distanceX * 1 + shiftX, 1f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 1f);
+                break;
+            case 3:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 1f);
+                GenerateObjectPreset1(leftX + distanceX * 1 + shiftX, 1f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 2f);
+                break;
+            case 4:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 2f);
+                GenerateObjectPreset1(leftX + distanceX * 1 + shiftX, 2f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 1f);
+                break;
+            case 5:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 1f);
+                GenerateObjectPreset1(leftX + distanceX * 1 + shiftX, 2f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 2f);
+                break;
+            case 6:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 2f);
+                GenerateObjectPreset1(leftX + distanceX * 1 + shiftX, 1f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 2f);
+                break;
+            case 7:
+                GenerateObjectPreset1(leftX + distanceX * 0 + shiftX, 1f);
+                GenerateObjectPreset1(leftX + distanceX * 1 + shiftX, 2f);
+                GenerateObjectPreset1(leftX + distanceX * 2 + shiftX, 1f);
                 break;
             default:
                 break;
