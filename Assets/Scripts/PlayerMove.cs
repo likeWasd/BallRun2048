@@ -23,7 +23,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] TextMeshProUGUI stringTextResult;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI retriedText;
-    public int stageNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -120,7 +119,8 @@ public class PlayerMove : MonoBehaviour
             if (sphereNumber >= eachWallNumber)
             {
                 Destroy(collision.gameObject);
-                stageNum++;
+                GameVariableManager.stageNumAfter++;
+                SceneManager.LoadSceneAsync("GameScene" + GameVariableManager.stageNumAfter, LoadSceneMode.Single);
                 moveSpeedF = 6;
                 sphereNumberExp = 1;
                 playerMaterial = gameObject.GetComponent<Renderer>();
@@ -130,9 +130,9 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
-                GameVariableManager.restartStage = stageNum;
+                GameVariableManager.restartStage = GameVariableManager.stageNumAfter;
                 GameVariableManager.retryTimes++;
-                SceneManager.LoadSceneAsync("GameScene", LoadSceneMode.Single);
+                SceneManager.LoadSceneAsync("GameScene" + GameVariableManager.stageNumAfter, LoadSceneMode.Single);
             }
         }
     }

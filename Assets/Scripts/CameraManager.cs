@@ -5,7 +5,8 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     public GameObject player;
-    Transform wallPack;
+    [SerializeField] GameObject wallPack;
+    Transform wallPackT;
     Transform[] walls;
     float[] wallsZ;
     bool isFinished;
@@ -14,7 +15,7 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         isFinished = false;
-        wallPack = GameObject.Find("WallPack").transform;
+        wallPackT = wallPack.transform;
     }
 
     // Update is called once per frame
@@ -22,10 +23,10 @@ public class CameraManager : MonoBehaviour
     {
         if (!isFinished)
         {
-            walls = new Transform[wallPack.childCount];
+            walls = new Transform[wallPackT.childCount];
             for (int i = 0; i < walls.Length; i++)
             {
-                walls[i] = wallPack.GetChild(i);
+                walls[i] = wallPackT.GetChild(i);
             }
             wallsZ = new float[walls.Length];
             for (int i = 0; i < wallsZ.Length; i++)

@@ -9,6 +9,7 @@ public class StgGenerator : MonoBehaviour
     [SerializeField] GameObject wallPrefab;
     [SerializeField] GameObject thornPrefab;
     [SerializeField] GameObject wallPack;
+    [SerializeField] GameObject spherePack;
     GameObject cloneObject;
     int iLength;
     int objectZ;
@@ -33,62 +34,74 @@ public class StgGenerator : MonoBehaviour
         UnityEngine.Random.InitState(123);
         allSpherePosShift = 20;
         sphereNumberExp = 0;
-        iLength = 10;
-        for (int i = 0; i < iLength; i++)
+        if (GameVariableManager.stageNumAfter == 1)
         {
-            objectZ = allSpherePosShift + i * allSphereDistance + sphereDistanceByNum * sphereNumberExp;
-            if (i == iLength - 1)
+            iLength = 10;
+            for (int i = 0; i < iLength; i++)
             {
-                GenerateObject(0, objectZ + 20, sphereNumberExp - 1, 1f);
-            }
-            else
-            {
-                if (i <= 4)
+                objectZ = allSpherePosShift + i * allSphereDistance + sphereDistanceByNum * sphereNumberExp;
+                if (i == iLength - 1)
                 {
-                    GenerateSphereArray(i, 0f);
+                    GenerateObject(0, objectZ + 20, sphereNumberExp - 1, 1f);
                 }
                 else
                 {
-                    if ((i + 1) % 2f == 0f)
+                    if (i <= 4)
                     {
-                        GenerateSphereArray(i, 1f);
+                        GenerateSphereArray(i, 0f);
                     }
                     else
                     {
-                        GenerateSphereArray(i, -1.5f);
+                        if ((i + 1) % 2f == 0f)
+                        {
+                            GenerateSphereArray(i, 1f);
+                        }
+                        else
+                        {
+                            GenerateSphereArray(i, -1.5f);
+                        }
                     }
+                    if (i > 0) sphereNumberExp++;
                 }
-                if (i > 0) sphereNumberExp++;
             }
         }
-        allSpherePosShift = 164;
-        sphereNumberExp = 0;
-        iLength = 15;
-        for (int i = 0; i < iLength; i++)
+        else if (GameVariableManager.stageNumAfter == 2)
         {
-            objectZ = allSpherePosShift + i * allSphereDistance + sphereDistanceByNum * sphereNumberExp;
-            if (i == iLength - 1)
+            iLength = 15;
+            for (int i = 0; i < iLength; i++)
             {
-                GenerateObject(0, objectZ + 20, sphereNumberExp - 1, 1f);
-            }
-            else
-            {
-                if (i <= 4)
+                objectZ = allSpherePosShift + i * allSphereDistance + sphereDistanceByNum * sphereNumberExp;
+                if (i == iLength - 1)
                 {
-                    GenerateSphereArray(i, 0f);
+                    GenerateObject(0, objectZ + 20, sphereNumberExp - 1, 1f);
                 }
                 else
                 {
-                    if ((i + 1) % 2f == 0f)
+                    if (i <= 4)
                     {
-                        GenerateSphereArray(i, 1f);
+                        GenerateSphereArray(i, 0f);
                     }
                     else
                     {
-                        GenerateSphereArray(i, -1.5f);
+                        if ((i + 1) % 2f == 0f)
+                        {
+                            GenerateSphereArray(i, 1f);
+                        }
+                        else
+                        {
+                            GenerateSphereArray(i, -1.5f);
+                        }
                     }
+                    if (i > 0) sphereNumberExp++;
                 }
-                if (i > 0) sphereNumberExp++;
+            }
+        }
+        else if (GameVariableManager.stageNumAfter == 3)
+        {
+            iLength = 15;
+            for (int i = 0; i < iLength; i++)
+            {
+                GenerateSphereArrayRandom(0);
             }
         }
     }
@@ -354,12 +367,14 @@ public class StgGenerator : MonoBehaviour
         {
             case 0:
                 cloneObject = Instantiate(spherePrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                cloneObject.transform.SetParent(spherePack.transform, false);
                 break;
             case 1:
                 cloneObject = Instantiate(wallPrefab, new Vector3(0f, 7f, z), Quaternion.identity, wallPack.transform);
                 break;
             case 2:
                 cloneObject = Instantiate(spherePrefab, new Vector3(x, 0.5f, z), Quaternion.identity);
+                cloneObject.transform.SetParent(spherePack.transform, false);
                 break;
             default:
                 break;
