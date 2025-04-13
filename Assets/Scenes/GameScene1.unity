@@ -1289,7 +1289,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1356970841cfd9047ae33ddd8f5a34ce, type: 2}
   - {fileID: 2100000, guid: b1e36096c382db542baac57d59dac461, type: 2}
   sphereNumberObject: {fileID: 2020687087}
-  defaultNumberExp: 1
+  defaultPlayerNumberExp: 12
   stringTextGoal: {fileID: 882726403}
   stringTextResult: {fileID: 1788505672}
   timeText: {fileID: 654584957}

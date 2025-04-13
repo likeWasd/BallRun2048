@@ -46,15 +46,23 @@ public class CameraManager : MonoBehaviour
                 break;
             }
         }
-        if (posz + 20f >= wallsZ[wallNth] && posz < wallsZ[wallNth])
-        {
-            transform.position = new Vector3(posx, posy + 4.5f, posz - 8);
-            transform.rotation = Quaternion.Euler(5, 0, 0);
-        }
-        else
+        if (wallsZ.Length == 0)
         {
             transform.position = new Vector3(posx, posy + 4.5f, posz - 3);
             transform.rotation = Quaternion.Euler(40, 0, 0);
+        }
+        else
+        {
+            if (posz + 20f >= wallsZ[wallNth] && posz < wallsZ[wallNth])
+            {
+                transform.position = new Vector3(posx, posy + 4.5f, posz - 8);
+                transform.rotation = Quaternion.Euler(5, 0, 0);
+            }
+            else
+            {
+                transform.position = new Vector3(posx, posy + 4.5f, posz - 3);
+                transform.rotation = Quaternion.Euler(40, 0, 0);
+            }
         }
     }
 }

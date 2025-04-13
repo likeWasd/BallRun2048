@@ -12,10 +12,11 @@ public class PlayerMove : MonoBehaviour
     int moveSpeedLR;
     public Material[] numberMaterial;
     [SerializeField] TextMeshPro sphereNumberObject;
-    int sphereNumber;
-    int sphereNumberExp;
+    int playerNumber;
+    int playerNumberExp;
+    int playerNumberKilo;
+    [SerializeField] int defaultPlayerNumberExp;
     Renderer playerMaterial;
-    [SerializeField] int defaultNumberExp;
     int eachWallNumber;
     float clearElapsedTime;
     int clearRetryTimes;
@@ -26,20 +27,20 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameVariableManager.restartStage == 2) transform.position = new Vector3(0, 0, 146);
-        moveSpeedF = defaultNumberExp + 5;
+        moveSpeedF = defaultPlayerNumberExp + 5;
         moveSpeedLR = 10;
-        sphereNumberExp = defaultNumberExp;
+        playerNumberExp = defaultPlayerNumberExp;
+        playerNumber = (int)Mathf.Pow(2, playerNumberExp);
+        playerNumberKilo = playerNumber / 1024;
         playerMaterial = gameObject.GetComponent<Renderer>();
-        playerMaterial.material = numberMaterial[sphereNumberExp - 1];
-        sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
-        if (sphereNumberExp == 10)
+        playerMaterial.material = numberMaterial[playerNumberExp - 1];
+        if (playerNumberExp == 10)
         {
             sphereNumberObject.text = "1k";
         }
         else
         {
-            sphereNumberObject.text = sphereNumber.ToString();
+            sphereNumberObject.text = playerNumber.ToString();
         }
         stringTextGoal.enabled = false;
         stringTextResult.enabled = false;
@@ -78,12 +79,12 @@ public class PlayerMove : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Thorn") && sphereNumber >= 4)
+        if (collision.gameObject.CompareTag("Thorn") && playerNumber >= 4)
         {
-            sphereNumber /= 2;
-            sphereNumberExp--;
-            playerMaterial.material = numberMaterial[sphereNumberExp - 1];
-            sphereNumberObject.text = sphereNumber.ToString();
+            playerNumber /= 2;
+            playerNumberExp--;
+            playerMaterial.material = numberMaterial[playerNumberExp - 1];
+            sphereNumberObject.text = playerNumber.ToString();
             moveSpeedF -= 2;
             if (moveSpeedF < 6)
             {
@@ -92,19 +93,20 @@ public class PlayerMove : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Sphere"))
         {
-            if (collision.gameObject.GetComponent<EachObject>().objectNumber == sphereNumber)
+            if (collision.gameObject.GetComponent<EachObject>().objectNumber == playerNumber)
             {
                 Destroy(collision.gameObject);
-                sphereNumber *= 2;
-                sphereNumberExp++;
-                playerMaterial.material = numberMaterial[sphereNumberExp - 1];
-                if (sphereNumberExp == 10)
+                playerNumber *= 2;
+                playerNumberExp++;
+                playerMaterial.material = numberMaterial[playerNumberExp - 1];
+                if (playerNumberExp >= 10)
                 {
-                    sphereNumberObject.text = "1k";
+                    playerNumberKilo = playerNumber / 1024;
+                    sphereNumberObject.text = playerNumberKilo + "k";
                 }
                 else
                 {
-                    sphereNumberObject.text = sphereNumber.ToString();
+                    sphereNumberObject.text = playerNumber.ToString();
                 }
                 moveSpeedF += 2;
                 if (moveSpeedF > 17)
@@ -116,23 +118,24 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             eachWallNumber = collision.gameObject.GetComponent<EachObject>().objectNumber;
-            if (sphereNumber >= eachWallNumber)
+            if (playerNumber >= eachWallNumber)
             {
                 Destroy(collision.gameObject);
-                GameVariableManager.stageNumAfter++;
-                SceneManager.LoadSceneAsync("GameScene" + GameVariableManager.stageNumAfter, LoadSceneMode.Single);
+                GameVariableManager.stageNum++;
+                SceneManager.LoadSceneAsync("GameScene" + GameVariableManager.stageNum, LoadSceneMode.Single);
+                /*
                 moveSpeedF = 6;
-                sphereNumberExp = 1;
+                objectNumberExp = 1;
                 playerMaterial = gameObject.GetComponent<Renderer>();
-                playerMaterial.material = numberMaterial[sphereNumberExp - 1];
-                sphereNumber = (int)Mathf.Pow(2, sphereNumberExp);
-                sphereNumberObject.text = sphereNumber.ToString();
+                playerMaterial.material = numberMaterial[objectNumberExp - 1];
+                playerNumber = (int)Mathf.Pow(2, objectNumberExp);
+                sphereNumberObject.text = playerNumber.ToString();
+                */
             }
             else
             {
-                GameVariableManager.restartStage = GameVariableManager.stageNumAfter;
                 GameVariableManager.retryTimes++;
-                SceneManager.LoadSceneAsync("GameScene" + GameVariableManager.stageNumAfter, LoadSceneMode.Single);
+                SceneManager.LoadSceneAsync("GameScene" + GameVariableManager.defaultStageNum, LoadSceneMode.Single);
             }
         }
     }

@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameVariableManager : MonoBehaviour
 {
     public static int retryTimes;
     public static float elapsedTime;
-    public static int restartStage;
-    public static int stageNumAfter;
-    public static int stageNumBefore;
+    public static int stageNum;
+    public static int defaultStageNum;
     // Start is called before the first frame update
     void Start()
     {
         retryTimes = 0;
-        restartStage = 1;
-        stageNumAfter = 1;
-        stageNumBefore = 1;
+        defaultStageNum = 1;
+        stageNum = defaultStageNum;
+        if (defaultStageNum >= 2) SceneManager.LoadSceneAsync("GameScene" + stageNum, LoadSceneMode.Single);
     }
 
     // Update is called once per frame

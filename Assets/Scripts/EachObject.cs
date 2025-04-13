@@ -32,7 +32,7 @@ public class EachObject : MonoBehaviour
         if (objectNumberExp >= 10)
         {
             objectNumberKiloExp = objectNumberExp - 9;
-            objectNumberKilo = (int)Mathf.Pow(2, objectNumberKiloExp - 1); ;
+            objectNumberKilo = (int)Mathf.Pow(2, objectNumberKiloExp - 1);
             objectNumberObject.text = objectNumberKilo.ToString() + "k";
         }
         else
