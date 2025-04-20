@@ -9,6 +9,8 @@ public class GameVariableManager : MonoBehaviour
     public static float elapsedTime;
     public static int stageNum;
     public static int defaultStageNum;
+    //public Material[] numMaterial;
+    public MaterialDataBase MaterialDataBase;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,6 @@ public class GameVariableManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 }

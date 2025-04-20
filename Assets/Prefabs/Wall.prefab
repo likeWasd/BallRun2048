@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358c7c751f2a7a34b93906d25d8c025c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectNumberObject: {fileID: 7895495605983853077}
-  defaultObjectNumberExp: 1
-  objectNumber: 0
-  numberMaterial: []
+  objNumObject: {fileID: 7895495605983853077}
+  defaultObjNumExp: 1
+  objNum: 0
+  objNumMaterial: []

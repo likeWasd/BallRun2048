@@ -1224,28 +1224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b18c393e3ab4614595062f61eca1ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberMaterial:
-  - {fileID: 2100000, guid: 48087ce88df377149982efed071815f0, type: 2}
-  - {fileID: 2100000, guid: 36f472b2ed4e29243aef813fc2f6d0df, type: 2}
-  - {fileID: 2100000, guid: 93cac63d005f91f449f837f64fad7202, type: 2}
-  - {fileID: 2100000, guid: fbecb7e732e08ee4a8dfc10cb79f45f8, type: 2}
-  - {fileID: 2100000, guid: ab438abfdfc03cb45995015b7ec0c2cc, type: 2}
-  - {fileID: 2100000, guid: dbea389bbcc230542adcbf26a439e09d, type: 2}
-  - {fileID: 2100000, guid: a2099f67bf036874382ae4e8ddce7d84, type: 2}
-  - {fileID: 2100000, guid: c04eb51a067d17c45810dd376c22610d, type: 2}
-  - {fileID: 2100000, guid: dfa752657f4e43e47ba7e0b85d648f6d, type: 2}
-  - {fileID: 2100000, guid: 30a7c9ce8a852d94885078a7bc7b353b, type: 2}
-  - {fileID: 2100000, guid: 8eb6d394789dccb47ac7331d5222f959, type: 2}
-  - {fileID: 2100000, guid: 92fefec489446ac48a0ad0ba7b909e9f, type: 2}
-  - {fileID: 2100000, guid: 0e5f90808157c59459fedb9ee2d7d40b, type: 2}
-  - {fileID: 2100000, guid: 100c604c23e16ba48bdefbeb8d4a44cf, type: 2}
-  - {fileID: 2100000, guid: becd1330a5e471142bad650857fd8bc1, type: 2}
-  - {fileID: 2100000, guid: 08d3bbd3889bffd42b41cf071664c52e, type: 2}
-  - {fileID: 2100000, guid: 30b8c40de34f4fd488d92a534799a88c, type: 2}
-  - {fileID: 2100000, guid: 1356970841cfd9047ae33ddd8f5a34ce, type: 2}
-  - {fileID: 2100000, guid: b1e36096c382db542baac57d59dac461, type: 2}
-  sphereNumberObject: {fileID: 2020687087}
-  defaultNumberExp: 1
+  sphereNumObj: {fileID: 2020687087}
+  defaultPlayerNumExp: 12
   stringTextGoal: {fileID: 882726403}
   stringTextResult: {fileID: 1788505672}
   timeText: {fileID: 654584957}

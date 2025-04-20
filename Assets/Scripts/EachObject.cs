@@ -5,13 +5,12 @@ using TMPro;
 
 public class EachObject : MonoBehaviour
 {
-    [SerializeField] TextMeshPro objectNumberObject;
-    [SerializeField] int defaultObjectNumberExp;
-    public int objectNumber;
-    int objectNumberExp;
-    int objectNumberKilo;
-    int objectNumberKiloExp;
-    public Material[] numberMaterial;
+    [SerializeField] TextMeshPro objNumObject;
+    [SerializeField] int defaultObjNumExp;
+    public int objNum;
+    int objNumExp;
+    int objNumKilo;
+    public Material[] objNumMaterial;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,21 +23,20 @@ public class EachObject : MonoBehaviour
         
     }
 
-    public void Create(int defaultNumberExp)
+    public void Create(int defaultNumExp)
     {
-        objectNumberExp = defaultNumberExp;
-        numberMaterial = GameObject.Find("Player").GetComponent<PlayerMove>().numberMaterial;
-        objectNumber = (int)Mathf.Pow(2, objectNumberExp);
-        if (objectNumberExp >= 10)
+        objNumExp = defaultNumExp;
+        objNumMaterial = GameObject.Find("RAM").gameObject.GetComponent<GameVariableManager>().MaterialDataBase.Sphere;
+        objNum = (int)Mathf.Pow(2, objNumExp);
+        objNumKilo = objNum / 1024;
+        if (objNumExp >= 10)
         {
-            objectNumberKiloExp = objectNumberExp - 9;
-            objectNumberKilo = (int)Mathf.Pow(2, objectNumberKiloExp - 1);
-            objectNumberObject.text = objectNumberKilo.ToString() + "k";
+            objNumObject.text = objNumKilo.ToString() + "k";
         }
         else
         {
-            objectNumberObject.text = objectNumber.ToString();
+            objNumObject.text = objNum.ToString();
         }
-        gameObject.GetComponent<Renderer>().material = numberMaterial[objectNumberExp - 1];
+        gameObject.GetComponent<Renderer>().material = objNumMaterial[objNumExp - 1];
     }
 }
