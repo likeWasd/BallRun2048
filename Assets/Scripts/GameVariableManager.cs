@@ -10,7 +10,7 @@ public class GameVariableManager : MonoBehaviour
     public static int stageNum;
     public static int defaultStageNum;
     //public Material[] numMaterial;
-    public MaterialDataBase MaterialDataBase;
+    public MaterialDataBase MaterialDataBaseII;
     // Start is called before the first frame update
     void Start()
     {

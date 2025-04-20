@@ -35,7 +35,7 @@ public class PlayerMove : MonoBehaviour
         playerMaterial = gameObject.GetComponent<Renderer>();
         ram = GameObject.Find("RAM").gameObject.GetComponent<GameVariableManager>();
         //playerMaterial.material = ram.numMaterial[playerNumExp - 1];
-        playerMaterial.material = ram.MaterialDataBase.Sphere[playerNumExp - 1];
+        playerMaterial.material = ram.MaterialDataBaseII.Sphere[playerNumExp - 1];
         if (playerNumExp == 10)
         {
             sphereNumObj.text = "1k";
@@ -85,7 +85,7 @@ public class PlayerMove : MonoBehaviour
         {
             playerNum /= 2;
             playerNumExp--;
-            playerMaterial.material = ram.MaterialDataBase.Sphere[playerNumExp - 1];
+            playerMaterial.material = ram.MaterialDataBaseII.Sphere[playerNumExp - 1];
             sphereNumObj.text = playerNum.ToString();
             moveSpeedF -= 2;
             if (moveSpeedF < 6)
@@ -101,7 +101,7 @@ public class PlayerMove : MonoBehaviour
                 playerNumExp++;
                 playerNum = (int)Mathf.Pow(2, playerNumExp);
                 playerNumKilo = playerNum / 1024;
-                playerMaterial.material = ram.MaterialDataBase.Sphere[playerNumExp - 1];
+                playerMaterial.material = ram.MaterialDataBaseII.Sphere[playerNumExp - 1];
                 if (playerNumExp >= 10)
                 {
                     sphereNumObj.text = playerNumKilo + "k";
