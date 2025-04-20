@@ -26,7 +26,7 @@ public class EachObject : MonoBehaviour
     public void Create(int defaultNumExp)
     {
         objNumExp = defaultNumExp;
-        objNumMaterial = GameObject.Find("RAM").gameObject.GetComponent<GameVariableManager>().MaterialDataBaseII.Sphere;
+        objNumMaterial = GameObject.Find("RAM").gameObject.GetComponent<GameVariableManager>().MaterialDataBase.Sphere;
         objNum = (int)Mathf.Pow(2, objNumExp);
         objNumKilo = objNum / 1024;
         if (objNumExp >= 10)
